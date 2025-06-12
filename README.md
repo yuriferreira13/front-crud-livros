@@ -3,7 +3,7 @@
 
  Aplicação simples de cadastro de livros
 
- ![image](https://github.com/user-attachments/assets/f1ab5e6b-0ec8-4fb5-b2e7-7fef2ddaaa6d)
+![image](https://github.com/user-attachments/assets/d07c016a-d4d5-43ad-a125-214f2c42aee1)
 
 ![image](https://github.com/user-attachments/assets/a077440f-5c5a-448a-955f-7790209e0492)
 
