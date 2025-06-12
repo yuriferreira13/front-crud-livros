@@ -6,6 +6,7 @@ export interface ListBooksProps {
   books: Book[];
   selecionarBook: (book: Book) => void;
   removerBook: (book: Book) => void;
+  alterarStatusLeitura: (id: number, isRead: boolean) => void;
 }
 
 export default function BookList(props: ListBooksProps) {
@@ -17,6 +18,19 @@ export default function BookList(props: ListBooksProps) {
           <span className="text-sm text-zinc-400">{book.author}</span>
         </div>
         <div className="flex gap-2">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <span className={book.isRead ? "text-green-500" : "text-gray-400"}>
+              {book.isRead ? "Lido" : "Não lido"}
+            </span>
+            <input
+              type="checkbox"
+              className="sr-only peer"
+              checked={book.isRead}
+              onChange={() => props.alterarStatusLeitura(book.id, !book.isRead)}
+            />
+            <div className="w-11 h-6 bg-gray-700 rounded-full peer-checked:bg-green-500 transition"></div>
+          </label>
+
           <button
             className="botao azul"
             onClick={() => props.selecionarBook(book)}
@@ -36,43 +50,9 @@ export default function BookList(props: ListBooksProps) {
 
   return (
     <ul className="flex flex-col gap-2">
-      {props.books.map((book) => {
-        return <li key={book.id}>{renderBook(book)}</li>;
+      {props.books.map((book, index) => {
+        return <li key={book.id || `temp-${index}`}>{renderBook(book)}</li>;
       })}
     </ul>
   );
 }
-/*"use client";
-import { useState } from 'react';
-
-export default function BookList({ books, alterarBook, removerBook  }) {
-  const [filteredBooks, setFilteredBooks] = useState<Book[] | null>(null); // 🔥 Renomeado!
-
-  const [error, setError] = useState('');
-console.log('Booklist renderizou!');
-
-  return (
-    <div className="bg-zinc-900 text-white p-6 rounded-lg shadow-md border border-zinc-700">
-      <h2 className="text-2xl font-semibold mb-4">📚 Livros Cadastrados</h2>
-      <ul className="space-y-4">
-        {books.map((book) => (
-          <li key={book.id} className="p-4 bg-zinc-800 border border-zinc-700 rounded-lg flex justify-between items-center">
-            <div className='flex-1'>
-              <span className="font-bold text-lg text-white">{book.title}</span> — {book.author} ({book.publishedYear})
-            </div>
-            <button
-              onClick={() => alterarBook(book)}
-              className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Editar
-            </button>
-            <button onClick={() => removerBook(book.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
-                Excluir
-              </button>
-
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}*/
