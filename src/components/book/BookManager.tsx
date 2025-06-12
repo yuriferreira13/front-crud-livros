@@ -28,8 +28,6 @@ export default function BookManager() {
 
     try {
       if (bookExistente) {
-        console.log(`Atualizando livro ${bookSelected.title}`);
-
         if (bookSelected?.id !== undefined) {
           await updateBook(
             {
@@ -44,7 +42,6 @@ export default function BookManager() {
           console.error("Erro: ID do livro está indefinido.");
         }
       } else {
-        console.log(`Criando novo livro`);
         await createBook(bookSelected as Book);
       }
 
@@ -75,7 +72,6 @@ export default function BookManager() {
   };
 
   async function removerBook(book: Book) {
-    console.log(`Tentando deletar o livro com ID: ${book.id}`);
     try {
       await deleteBook(book.id);
       const todosMenosBookInformado = books.filter((u) => u.id !== book.id);
