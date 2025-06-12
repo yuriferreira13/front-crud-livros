@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import BookList from "./BookList";
 import BookForm from "./BookForm";
+import { bookSchema } from "./BookSchema";
 import Book from "../../data/model/Book";
 import {
   fetchBooks,
@@ -25,6 +26,15 @@ export default function BookManager() {
     if (!bookSelected) return;
 
     const bookExistente = books.find((b) => b.id === bookSelected?.id);
+    const validation = bookSchema.safeParse(bookSelected);
+
+    if (!validation.success) {
+      alert(
+        "Erro na validação: " +
+          validation.error.errors.map((err) => err.message).join(", ")
+      );
+      return;
+    }
 
     try {
       if (bookExistente) {
